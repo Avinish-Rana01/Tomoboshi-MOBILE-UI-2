@@ -1,0 +1,1181 @@
+/* ==========================================================================
+   CaptureFlow.css — Styles for Two-Option Capture Sheet & 3D AR Camera Flow
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Capture Choice Sheet & Option Cards
+   -------------------------------------------------------------------------- */
+.cf-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  animation: cfFadeIn 0.25s ease-out;
+}
+
+@keyframes cfFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cf-sheet-drawer {
+  position: absolute;
+  inset-x: 0;
+  bottom: 0;
+  background: #ffffff;
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
+  padding: 12px 20px 28px;
+  animation: cfSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes cfSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.cf-drag-handle {
+  width: 44px;
+  height: 5px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  margin: 0 auto 14px;
+}
+
+.cf-sheet-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.cf-header-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+.cf-header-sub {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.cf-reward-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border: 1px solid #fde68a;
+  color: #b45309;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);
+}
+
+.cf-coins-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffd700 0%, #eab308 100%);
+  border: 1px solid #ca8a04;
+  box-shadow: inset 0 1px 1px #fff;
+  display: inline-block;
+}
+
+/* Two Capture Method Option Cards */
+.cf-options-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+.cf-options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.cf-option-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background: #f8fafc;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.cf-option-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.cf-option-card:active {
+  transform: scale(0.98);
+}
+
+/* Primary AR 3D Option */
+.cf-option-card.ar-option {
+  background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+  color: #ffffff;
+  border-color: #f5c542;
+  box-shadow: 0 8px 24px rgba(245, 197, 66, 0.2);
+}
+
+.cf-option-card.ar-option .cf-card-title {
+  color: #ffffff;
+}
+
+.cf-option-card.ar-option .cf-card-desc {
+  color: #a1a1aa;
+}
+
+.cf-ar-badge {
+  position: absolute;
+  top: -8px;
+  right: 14px;
+  background: linear-gradient(135deg, #ffd700 0%, #f59e0b 100%);
+  color: #000;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Secondary Instant Option */
+.cf-option-card.instant-option {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  color: #0f172a;
+}
+
+.cf-option-card.instant-option:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+.cf-card-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.cf-option-card.ar-option .cf-card-icon-wrap {
+  background: rgba(245, 197, 66, 0.15);
+  border: 1px solid rgba(245, 197, 66, 0.4);
+}
+
+.cf-option-card.instant-option .cf-card-icon-wrap {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+.cf-card-content {
+  flex: 1;
+}
+
+.cf-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.cf-card-desc {
+  font-size: 12px;
+  color: #64748b;
+  margin: 2px 0 0 0;
+}
+
+.cf-card-arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+.cf-option-card.ar-option .cf-card-arrow {
+  background: #f5c542;
+  color: #000000;
+}
+
+.cf-option-card.instant-option .cf-card-arrow {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* --------------------------------------------------------------------------
+   2. Fullscreen AR 3D Camera View
+   -------------------------------------------------------------------------- */
+.cf-ar-viewport {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Camera Stream or Simulated Viewfinder */
+.cf-video-feed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.cf-camera-black-bg {
+  position: absolute;
+  inset: 0;
+  background: #000000;
+  overflow: hidden;
+}
+
+.cf-simulated-camera {
+  position: absolute;
+  inset: 0;
+  background: #000000;
+  overflow: hidden;
+}
+
+.cf-camera-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 33.333% 33.333%;
+  pointer-events: none;
+}
+
+/* Top AR HUD */
+.cf-ar-top-bar {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px 20px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+}
+
+.cf-ar-close-btn {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.cf-ar-close-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* 3D AR Center Stage */
+.cf-ar-stage {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+/* AR Viewfinder Reticle */
+.cf-ar-reticle {
+  position: absolute;
+  width: 290px;
+  height: 330px;
+  border-radius: 28px;
+  border: 1.5px dashed rgba(245, 197, 66, 0.45);
+  pointer-events: none;
+  animation: cfReticlePulse 3s infinite ease-in-out;
+}
+
+@keyframes cfReticlePulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.02); opacity: 0.95; }
+}
+
+.cf-bracket {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: #f5c542;
+  border-style: solid;
+}
+.cf-bracket.tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; border-top-left-radius: 8px; }
+.cf-bracket.tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; border-top-right-radius: 8px; }
+.cf-bracket.bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; border-bottom-left-radius: 8px; }
+.cf-bracket.br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; border-bottom-right-radius: 8px; }
+
+/* Interactive 3D Flag & Coin Relic */
+.cf-3d-interactive-target {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  animation: cfRelicHover 3.5s infinite ease-in-out;
+  outline: none;
+}
+
+@keyframes cfRelicHover {
+  0%, 100% { transform: translateY(0px) rotateY(0deg); }
+  25% { transform: translateY(-16px) rotateY(15deg) rotateX(4deg); }
+  50% { transform: translateY(0px) rotateY(0deg); }
+  75% { transform: translateY(14px) rotateY(-15deg) rotateX(-4deg); }
+}
+
+.cf-3d-interactive-target:hover .cf-3d-flag-assembly {
+  transform: scale(1.1) rotateY(20deg);
+  filter: drop-shadow(0 0 28px rgba(245, 197, 66, 0.9));
+}
+
+.cf-3d-interactive-target:active .cf-3d-flag-assembly {
+  transform: scale(0.94);
+}
+
+.cf-3d-flag-assembly {
+  position: relative;
+  width: 150px;
+  height: 180px;
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  filter: drop-shadow(0 16px 32px rgba(245, 197, 66, 0.6));
+}
+
+/* 3D Flag Pole */
+.cf-pole {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  background: linear-gradient(90deg, #92400e 0%, #fde047 45%, #ca8a04 100%);
+  border-radius: 5px;
+  box-shadow: 0 0 12px rgba(245, 197, 66, 0.5);
+}
+
+.cf-finial-gold {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #ffd700 60%, #b45309 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.95);
+}
+
+/* 3D Gold Fabric Banner */
+.cf-fabric-banner {
+  position: absolute;
+  left: 28px;
+  top: 10px;
+  width: 110px;
+  height: 80px;
+  background: linear-gradient(135deg, #f5c542 0%, #eab308 45%, #ca8a04 80%, #fef08a 100%);
+  clip-path: polygon(0 0, 100% 0, 84% 50%, 100% 100%, 0 100%);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.8), 0 8px 20px rgba(0, 0, 0, 0.35);
+  animation: cfBannerWave 2.8s infinite ease-in-out;
+  transform-origin: left center;
+}
+
+@keyframes cfBannerWave {
+  0%, 100% { transform: rotateY(0deg) skewY(0deg); }
+  35% { transform: rotateY(26deg) skewY(3deg); }
+  70% { transform: rotateY(-20deg) skewY(-2deg); }
+}
+
+.cf-banner-coin {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #fef08a 50%, #eab308 100%);
+  border: 2px solid #a16207;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.cf-coin-star {
+  font-size: 22px;
+  color: #854d0e;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Concentric Spinning AR Rings */
+.cf-spinning-rings {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(75deg);
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+}
+
+.cf-ring-outer {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #f5c542;
+  border-radius: 50%;
+  box-shadow: 0 0 16px #f5c542, inset 0 0 16px #f5c542;
+  animation: cfRingRotate 6s infinite linear;
+}
+
+.cf-ring-inner {
+  position: absolute;
+  inset: 22px;
+  border: 2px dashed #f5c542;
+  border-radius: 50%;
+  animation: cfRingRotate 4s infinite linear reverse;
+}
+
+@keyframes cfRingRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Tap Callout Pill */
+.cf-tap-callout-pill {
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #ffd700 0%, #f5c542 50%, #eab308 100%);
+  color: #000;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 24px rgba(245, 197, 66, 0.65), inset 0 1px 2px #fff;
+  animation: cfTapPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes cfTapPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 6px 24px rgba(245, 197, 66, 0.65); }
+  50% { transform: scale(1.05); box-shadow: 0 8px 32px rgba(245, 197, 66, 0.95); }
+}
+
+/* Bottom AR Action Bar */
+.cf-ar-bottom-bar {
+  position: relative;
+  z-index: 20;
+  padding: 16px 20px 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 60%, transparent 100%);
+}
+
+.cf-ar-capture-btn {
+  width: 100%;
+  max-width: 350px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  background: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
+  color: #f5c542;
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 4px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, filter 0.15s ease;
+  outline: none;
+}
+
+.cf-ar-capture-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.cf-ar-capture-btn:active {
+  transform: scale(0.97);
+}
+
+/* --------------------------------------------------------------------------
+   3. Camera Permission UI State (Design Only)
+   -------------------------------------------------------------------------- */
+.cf-permission-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(11, 15, 25, 0.88);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: cfFadeIn 0.25s ease-out;
+}
+
+.cf-permission-card {
+  width: 100%;
+  max-width: 340px;
+  background: #18181b;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(245, 197, 66, 0.15);
+  animation: cfScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes cfScaleUp {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.cf-permission-icon-halo {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 197, 66, 0.2) 0%, rgba(245, 197, 66, 0.04) 70%, transparent 100%);
+  border: 1px solid rgba(245, 197, 66, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 30px rgba(245, 197, 66, 0.25);
+}
+
+.cf-permission-icon-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(245, 197, 66, 0.45);
+  animation: cfRingRotate 10s infinite linear;
+}
+
+.cf-permission-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 8px;
+  letter-spacing: -0.2px;
+}
+
+.cf-permission-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #a1a1aa;
+  margin: 0 0 24px;
+}
+
+.cf-permission-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cf-btn-enable-camera {
+  width: 100%;
+  height: 48px;
+  border-radius: 9999px;
+  border: none;
+  background: linear-gradient(135deg, #ffd700 0%, #f5c542 50%, #eab308 100%);
+  color: #000;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(245, 197, 66, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cf-btn-enable-camera:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(245, 197, 66, 0.6);
+}
+
+.cf-btn-enable-camera:active {
+  transform: scale(0.98);
+}
+
+.cf-btn-cancel-permission {
+  width: 100%;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cf-btn-cancel-permission:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   4. Circular Scanning Loader / Reticle (CrateScanLoader)
+   ========================================================================== */
+
+/* Container positioned over the center of the viewport */
+.ar-scan-reticle-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  pointer-events: none;
+  transition: opacity 340ms ease, transform 340ms ease;
+}
+
+.ar-scan-reticle-stage.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ar-scan-reticle-stage.is-hidden {
+  opacity: 0;
+  transform: scale(0.86);
+  pointer-events: none;
+}
+
+/* Reticle wrapper */
+.ar-scan-reticle {
+  position: relative;
+  width: 168px;
+  height: 168px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG with glowing gold drop shadow */
+.ar-scan-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 14px rgb(245 197 66 / 65%));
+}
+
+/* Continuous clockwise rotation of the segmented arc */
+.ar-scan-ring-Spin {
+  transform-origin: 120px 120px;
+  animation: ar-spin-cw 1.8s linear infinite;
+}
+
+/* Radar pulse ripple effect */
+.ar-scan-pulse-ring {
+  position: absolute;
+  inset: 16px;
+  border-radius: 999px;
+  border: 2px solid rgb(245 197 66 / 70%);
+  animation: ar-reticle-ripple 1.4s ease-out infinite;
+}
+
+.ar-scan-pulse-ring.delay-1 {
+  animation-delay: 0.7s;
+}
+
+.ar-scan-label {
+  color: #f5c542;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 12px rgba(245, 197, 66, 0.6);
+  animation: cfReticlePulse 1.6s infinite ease-in-out;
+}
+
+/* Keyframes */
+@keyframes ar-spin-cw {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ar-reticle-ripple {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+/* Accessibility reduced motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  .ar-scan-ring-Spin,
+  .ar-scan-pulse-ring {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   5. Pixel-Perfect iOS System Camera Permission Alert Simulation
+   ========================================================================== */
+.ios-permission-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: iosAlertFadeIn 0.2s ease-out;
+}
+
+@keyframes iosAlertFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ios-alert-box {
+  width: 270px;
+  max-width: 90vw;
+  background: rgba(245, 245, 247, 0.92);
+  backdrop-filter: blur(30px) saturate(190%);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  animation: iosAlertPop 0.22s cubic-bezier(0.18, 0.89, 0.32, 1.15);
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  user-select: none;
+}
+
+@keyframes iosAlertPop {
+  from { transform: scale(1.08); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.ios-alert-body {
+  padding: 18px 16px 18px;
+}
+
+.ios-alert-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #000000;
+  line-height: 1.25;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.4px;
+}
+
+.ios-alert-message {
+  font-size: 13px;
+  font-weight: 400;
+  color: #000000;
+  line-height: 1.35;
+  margin: 0;
+  letter-spacing: -0.15px;
+}
+
+.ios-alert-actions {
+  display: flex;
+  height: 44px;
+  border-top: 0.5px solid rgba(60, 60, 67, 0.29);
+}
+
+.ios-alert-btn {
+  flex: 1;
+  height: 100%;
+  background: transparent;
+  border: none;
+  font-size: 17px;
+  color: #007aff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 0.1s ease;
+  outline: none;
+}
+
+.ios-alert-btn:active {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.ios-alert-btn.cancel {
+  font-weight: 400;
+  border-right: 0.5px solid rgba(60, 60, 67, 0.29);
+}
+
+.ios-alert-btn.confirm {
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   6. Exact Floating HUD Glass Card (Matching Other Project / Screenshot)
+   ========================================================================== */
+.ar-hud-card-wrapper {
+  width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
+  pointer-events: auto;
+  animation: arCardSlideUp 0.34s cubic-bezier(0.22, 0.75, 0.25, 1) both;
+}
+
+@keyframes arCardSlideUp {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.ar-floating-glass-card {
+  border-radius: 26px;
+  border: none;
+  background: rgba(18, 18, 20, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 16px 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+}
+
+.ar-card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ar-card-kicker {
+  margin: 0;
+  font-size: 11px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f5c542;
+}
+
+.ar-card-title {
+  margin: 2px 0 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Classic Tomoboshi Reward Pill */
+.ar-card-reward-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 6px;
+  border-radius: 9999px;
+  background: #fff5cf;
+  border: 1px solid #f1cf72;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.ar-card-coin-icon {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #e6a817;
+  background: linear-gradient(145deg, #ffe894 15%, #ffc83d 58%, #e8a414 100%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 4px rgba(169, 112, 0, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ar-card-coin-inner {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(185, 121, 8, 0.65);
+}
+
+.ar-card-reward-text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #8c5b00;
+  line-height: 1;
+}
+
+.ar-card-instruction {
+  margin: 8px 0 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* Flat Clean Gold CTA Button - No Shadows, No Borders, No AI Glow */
+.ar-card-unlock-cta {
+  position: relative;
+  overflow: hidden;
+  margin-top: 14px;
+  width: 100%;
+  height: 46px;
+  border-radius: 9999px;
+  border: none;
+  background: #f5c542;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: none;
+  transition: transform 150ms ease, filter 150ms ease;
+  outline: none;
+}
+
+.ar-card-unlock-cta:hover {
+  filter: brightness(1.04);
+}
+
+.ar-card-unlock-cta:active {
+  transform: scale(0.98);
+}
+
+.ar-card-unlock-cta:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.3);
+}
+
+.ar-unlock-dot {
+  display: none;
+}
+
+/* 3D Tomoboshi Star Coin Assembly */
+.cf-3d-coin-assembly {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease;
+}
+
+.cf-coin-ground-shadow {
+  position: absolute;
+  bottom: -46px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(75deg);
+  width: 140px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 0%, rgba(245, 197, 66, 0.18) 45%, transparent 70%);
+  filter: blur(8px);
+  animation: cfCoinShadowPulse 4.5s infinite ease-in-out;
+}
+
+@keyframes cfCoinShadowPulse {
+  0%, 100% { transform: translateX(-50%) rotateX(75deg) scale(1); opacity: 0.75; }
+  50% { transform: translateX(-50%) rotateX(75deg) scale(0.82); opacity: 0.45; }
+}
+
+/* Floating Gold Particle Field */
+.cf-coin-sparkle-field {
+  position: absolute;
+  inset: -20px;
+  pointer-events: none;
+}
+
+.cf-sparkle {
+  position: absolute;
+  color: #f5c542;
+  filter: drop-shadow(0 0 8px rgba(245, 197, 66, 0.9));
+  animation: cfSparkleDrift 3.5s infinite ease-in-out;
+}
+
+.sp1 { top: -6px; right: 8px; font-size: 18px; animation-delay: 0s; }
+.sp2 { bottom: 18px; left: -10px; font-size: 15px; animation-delay: 1.2s; }
+.sp3 { top: 24px; left: -14px; font-size: 16px; animation-delay: 2.3s; }
+
+@keyframes cfSparkleDrift {
+  0%, 100% { transform: translateY(0) scale(0.9); opacity: 0.6; }
+  50% { transform: translateY(-8px) scale(1.2); opacity: 1; }
+}
+
+/* 3D Coin Cylinder Body */
+.cf-coin-3d-body {
+  position: relative;
+  width: 145px;
+  height: 145px;
+  transform-style: preserve-3d;
+  animation: cfStarCoinSpin 6s infinite ease-in-out;
+}
+
+@keyframes cfStarCoinSpin {
+  0% {
+    transform: translateY(0px) rotateY(-22deg) rotateX(8deg);
+  }
+  25% {
+    transform: translateY(-10px) rotateY(16deg) rotateX(-4deg);
+  }
+  50% {
+    transform: translateY(-18px) rotateY(38deg) rotateX(6deg);
+  }
+  75% {
+    transform: translateY(-8px) rotateY(4deg) rotateX(-5deg);
+  }
+  100% {
+    transform: translateY(0px) rotateY(-22deg) rotateX(8deg);
+  }
+}
+
+.cf-coin-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.cf-coin-front {
+  transform: translateZ(9px);
+  filter: drop-shadow(0 8px 24px rgba(245, 197, 66, 0.5));
+}
+
+.cf-coin-back {
+  transform: rotateY(180deg) translateZ(9px);
+  filter: drop-shadow(0 8px 24px rgba(245, 197, 66, 0.4));
+}
+
+.cf-coin-asset-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+/* Dynamic Glare Sheen */
+.cf-coin-specular-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, transparent 40%, transparent 65%, rgba(255, 255, 255, 0.25) 100%);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* 3D Cylindrical Edge Extrusion (Real Coin Thickness) */
+.cf-coin-edge-rim {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.cf-edge-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f5c542 0%, #b47200 85%, #78350f 100%);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.r1 { transform: translateZ(6px); }
+.r2 { transform: translateZ(3px); }
+.r3 { transform: translateZ(0px); }
+.r4 { transform: translateZ(-3px); }
+.r5 { transform: translateZ(-6px); }
